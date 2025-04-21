@@ -1,0 +1,8 @@
+﻿  Main.cpp
+  MyFirstWndGame.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(165,13): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(166,13): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(213,61): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(213,40): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  MyFirstWndGame.vcxproj -> C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\x64\Debug\MyFirstWndGame.exe
