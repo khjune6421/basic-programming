@@ -28,7 +28,10 @@ public:
 	void SetPositionY(float y) { m_pos.y = y; }
 	Vector GetPosition() const { return m_pos; }
 	void SetCollider(float halfWidth, float halfHeight);
+	void SetColliderW(float halfWidth);
+	void SetColliderH(float halfHeight);
 	Collider* GetCollider() const { return m_pCollider; }
+	void Setm_pos(Vector newVecter) { m_pos.operator+=(newVecter); }
 	void DrawCollider(HDC hdc, bool isColliding);
 	void SetWidth(int width) { m_width = width; }
 	void SetHeight(int height) { m_height = height; }
@@ -52,9 +55,9 @@ public:
 
 	void UpdateFrame(double deltatime);
 	void SetBitmapInfo(BitmapInfo* bitmapInfo);
-	void Update(float deltaTime);
+	void Update(bool isDucking);
 	void Render(HDC hdc, bool isColliding);
-	void Move(double deltaTime, float movement) { m_pos.x += movement * deltaTime; };
+	void Move(double deltaTime, float movement) { m_pos.x += movement * static_cast <float>(deltaTime); };
 
 protected:
 	void DrawBitmap(HDC hdc);
@@ -70,10 +73,10 @@ protected:
 	int m_frameWidth = 0;
 	int m_frameHeight = 0;
 	int m_frameIndex = 0;
-	int m_frameAmount = 14;
+	int m_frameAmount = 2;
 
 	double m_frameTime = 0.0;
-	double m_frameDuration = 50.0;
+	double m_frameDuration = 100.0;
 };
 
 class Enemy : public GameObject
@@ -83,9 +86,9 @@ public:
 
 	void UpdateFrame(double deltatime);
 	void SetSpeed(float speed) { m_speed = speed; }
-	void Move(double deltaTime) {m_pos.x += m_speed * deltaTime;}
+	void Move(double deltaTime) {m_pos.x += m_speed * static_cast <float>(deltaTime);}
 	void SetBitmapInfo(BitmapInfo* bitmapInfo);
-	void Update(float deltaTime);
+	bool Update(double deltaTime);
 	void Render(HDC hdc, bool isColliding);
 
 protected:
@@ -102,11 +105,12 @@ protected:
 	int m_frameWidth = 0;
 	int m_frameHeight = 0;
 	int m_frameIndex = 0;
-	int m_frameAmount = 14;
+	int m_frameAmount = 2;
 
 	double m_frameTime = 0.0;
-	double m_frameDuration = 50.0;
+	double m_frameDuration = 200.0;
 
 private:
 	float m_speed = 0.0f;
+	double lifeSpan = 10000.0;
 };

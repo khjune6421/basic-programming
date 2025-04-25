@@ -1,8 +1,148 @@
-﻿  Main.cpp
+﻿  EndingScene.cpp
+  GameObject.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,14): error C3646: 'EnemySpawnPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,32): error C2059: 구문 오류: '('
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,34): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,14): error C3646: 'PlayerTargetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,34): error C2059: 구문 오류: '('
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,36): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'EndingScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(126,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(125,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(124,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(123,50): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(134,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(133,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(132,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(131,49): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(169,27): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(169,17): warning C4244: '초기화 중': 'float'에서 'const int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(170,27): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\GameObject.cpp(170,17): warning C4244: '초기화 중': 'float'에서 'const int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Main.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,14): error C3646: 'EnemySpawnPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,32): error C2059: 구문 오류: '('
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,34): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,14): error C3646: 'PlayerTargetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,34): error C2059: 구문 오류: '('
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,36): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'Main.cpp'을(를) 컴파일하는 중)
+  
   MyFirstWndGame.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,14): error C3646: 'EnemySpawnPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,32): error C2059: 구문 오류: '('
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,34): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,14): error C3646: 'PlayerTargetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,34): error C2059: 구문 오류: '('
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,36): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'MyFirstWndGame.cpp'을(를) 컴파일하는 중)
+  
 C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(165,13): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(166,13): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(213,61): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(213,40): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(231,26): error C2039: 'EnemySpawnPosition': 'MyFirstWndGame'의 멤버가 아닙니다.
+      C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(16,7):
+      'MyFirstWndGame' 선언을 참조하십시오.
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(235,22): error C2065: 'm_EnemySpawnPos': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(235,41): error C2065: 'm_EnemySpawnPos': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(238,26): error C2039: 'PlayerTargetPosition': 'MyFirstWndGame'의 멤버가 아닙니다.
+      C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(16,7):
+      'MyFirstWndGame' 선언을 참조하십시오.
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(240,34): error C3861: 'GetPlayer': 식별자를 찾을 수 없습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(244,23): error C2065: 'm_PlayerTargetPos': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(244,44): error C2065: 'm_PlayerTargetPos': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(253,25): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.cpp(254,25): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  PlayScene.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,14): error C3646: 'EnemySpawnPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,32): error C2059: 구문 오류: '('
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,34): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,14): error C3646: 'PlayerTargetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,34): error C2059: 구문 오류: '('
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,36): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'PlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\PlayScene.cpp(29,34): error C2039: 'EnemySpawnPosition': 'MyFirstWndGame'의 멤버가 아닙니다.
+      C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(16,7):
+      'MyFirstWndGame' 선언을 참조하십시오.
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\PlayScene.cpp(120,34): error C2039: 'EnemySpawnPosition': 'MyFirstWndGame'의 멤버가 아닙니다.
+      C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(16,7):
+      'MyFirstWndGame' 선언을 참조하십시오.
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\PlayScene.cpp(158,35): error C2039: 'PlayerTargetPosition': 'MyFirstWndGame'의 멤버가 아닙니다.
+      C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(16,7):
+      'MyFirstWndGame' 선언을 참조하십시오.
+  
+  TitleScene.cpp
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,14): error C3646: 'EnemySpawnPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,32): error C2059: 구문 오류: '('
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(88,34): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,14): error C3646: 'PlayerTargetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,34): error C2059: 구문 오류: '('
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\MyFirstWndGame.h(89,36): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'TitleScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(14,5): error C2065: 'Background': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(14,17): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(14,34): error C2061: 구문 오류: 식별자 'Background'
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(15,5): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(20,5): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(21,5): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(23,5): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
+C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\MyFirstWndGame\TitleScene.cpp(30,21): error C2065: 'pNewObject': 선언되지 않은 식별자입니다.
   코드를 생성하고 있습니다...
-  MyFirstWndGame.vcxproj -> C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\x64\Debug\MyFirstWndGame.exe

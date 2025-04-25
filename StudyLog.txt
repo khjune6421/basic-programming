@@ -205,3 +205,43 @@ void DeleteNode()
     }
 }
 각각 노드의 주소를 따라가며 출력/할당 헤제를 한다
+
+250422
+
+씬 전환
+
+int m_eCurrentScene = SCENE_TITLE;
+  Scene* m_pScenes[SceneType::SCENE_MAX] = { nullptr, nullptr, nullptr };
+
+m_pScenes[SceneType::SCENE_TITLE] = new TitleScene();
+  m_pScenes[SceneType::SCENE_TITLE]->Initialize(this);
+
+
+  m_pScenes[SceneType::SCENE_PLAY] = new PlayScene();
+  m_pScenes[SceneType::SCENE_PLAY]->Initialize(this);
+
+  m_pScenes[SceneType::SCENE_ENDING] = new EndingScene();
+  m_pScenes[SceneType::SCENE_ENDING]->Initialize(this);
+
+나누어서 관리?
+
+250424
+
+링크드 리스트
+
+struct Node
+{
+	int num = 0;
+
+	Node* previousNode = nullptr;
+	Node* nextNode = nullptr;
+};
+
+int inputNum = 0;
+Node* baseNode = new Node;
+Node* baseNodePrev = new Node;
+Node* baseNodeNext = new Node;
+Node* firstNode = baseNode;
+
+머리아픈 녀석
+그러나 유용해 보인다

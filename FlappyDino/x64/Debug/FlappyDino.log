@@ -1,17 +1,2 @@
 ﻿  GameWindow.cpp
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameObject.h(57,68): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'GameWindow.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameObject.h(86,50): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'GameWindow.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(266,36): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(281,36): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(285,63): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(288,36): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(298,36): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(301,36): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(304,69): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(328,18): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\FlappyDino\GameWindow.cpp(334,19): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   FlappyDino.vcxproj -> C:\Users\User\Desktop\프로그래밍기초_과제\GDIGame\김현준_프로그래밍기초\x64\Debug\FlappyDino.exe

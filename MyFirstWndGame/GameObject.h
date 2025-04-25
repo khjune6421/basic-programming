@@ -88,8 +88,8 @@ public:
     void SetColliderCircle(float radius);
     void SetColliderBox(float halfWidth, float halfHeight);
 
-    void setWidth(int width) { m_width = width; }
-    void setHeight(int height) { m_height = height; }
+    void SetWidth(int width) { m_width = width; }
+    void SetHeight(int height) { m_height = height; }
 
     ColliderCircle* GetColliderCircle() const
     {

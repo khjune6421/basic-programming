@@ -29,6 +29,50 @@ void GameObject::SetCollider(float width, float height)
     m_pCollider->halfSize.y = height / 2.0f;
 }
 
+void GameObject::SetColliderW(float width)
+{
+    float height = 0.0f;
+    if (m_pCollider)
+    {
+        height = m_pCollider->halfSize.y;
+        delete m_pCollider;
+        m_pCollider = nullptr;
+    }
+
+    m_pCollider = new Collider;
+
+    assert(m_pCollider != nullptr && "콜라이더 생성 실패");
+
+    m_pCollider->center = m_pos;
+    m_pCollider->halfSize.x = width / 2.0f;
+    if (height)
+    {
+        m_pCollider->halfSize.y = height;
+    }
+}
+
+void GameObject::SetColliderH(float height)
+{
+    float width = 0.0f;
+    if (m_pCollider)
+    {
+        width = m_pCollider->halfSize.x;
+        delete m_pCollider;
+        m_pCollider = nullptr;
+    }
+
+    m_pCollider = new Collider;
+
+    assert(m_pCollider != nullptr && "콜라이더 생성 실패");
+
+    m_pCollider->center = m_pos;
+    if (width)
+    {
+        m_pCollider->halfSize.x = width;
+    }
+    m_pCollider->halfSize.y = height / 2.0f;
+}
+
 void GameObject::DrawCollider(HDC hdc, bool isColliding)
 {
     HPEN hOldPen = (HPEN)SelectObject(hdc, m_hPenArr[isColliding]);
@@ -114,12 +158,9 @@ void Enemy::UpdateFrame(double deltaTime)
 
 void Player::SetBitmapInfo(BitmapInfo* bitmapInfo)
 {
-    assert(m_pBitmapInfo == nullptr && "BitmapInfo must be null!");
-
     m_pBitmapInfo = bitmapInfo;
-    m_frameWidth = m_pBitmapInfo->GetWidth() / 5;
-    m_frameHeight = m_pBitmapInfo->GetHeight() / 3;
-    m_frameIndex = 0;
+    m_frameWidth = m_pBitmapInfo->GetWidth() / 2;
+    m_frameHeight = m_pBitmapInfo->GetHeight();
 
     for (int i = 0; i < 5; ++i)
     {
@@ -145,8 +186,8 @@ void Enemy::SetBitmapInfo(BitmapInfo* bitmapInfo)
     assert(m_pBitmapInfo == nullptr && "BitmapInfo must be null!");
 
     m_pBitmapInfo = bitmapInfo;
-    m_frameWidth = m_pBitmapInfo->GetWidth() / 5;
-    m_frameHeight = m_pBitmapInfo->GetHeight() / 3;
+    m_frameWidth = m_pBitmapInfo->GetWidth() / 2;
+    m_frameHeight = m_pBitmapInfo->GetHeight();
     m_frameIndex = 0;
 
     for (int i = 0; i < 5; ++i)
@@ -168,19 +209,29 @@ void Enemy::SetBitmapInfo(BitmapInfo* bitmapInfo)
     }
 }
 
-void Player::Update(float deltaTime)
+void Player::Update(bool isDucking)
 {
+    Vector addVector = { 0.0f, 25.0f * isDucking };
     if (m_pCollider)
     {
-        m_pCollider->center = m_pos;
+        m_pCollider->center = m_pos.operator+(addVector);
     }
 }
 
-void Enemy::Update(float deltaTime)
+bool Enemy::Update(double deltaTime)
 {
     Move(deltaTime);
-    if (m_pCollider)
+    lifeSpan -= deltaTime;
+    if (lifeSpan < 0)
     {
-        m_pCollider->center = m_pos;
+        return true;
+    }
+    else
+    {
+        if (m_pCollider)
+        {
+            m_pCollider->center = m_pos;
+        }
+        return false;
     }
 }

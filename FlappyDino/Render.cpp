@@ -114,7 +114,6 @@
                 return false;
             }
 
-            // 비트맵에 픽셀 복사 (32bppPBGRA로 변환)
             m_LastError = m_pConverter->CopyPixels(nullptr, width * 4, width * height * 4, (BYTE*)pvImageBits);
 
             if (FAILED(m_LastError))
@@ -157,7 +156,6 @@
         IWICBitmapFrameDecode* m_pFrame = nullptr;
         IWICFormatConverter* m_pConverter = nullptr;
 
-        // WICInitializer는 복사할 수 없도록 삭제합니다.
         WICInitializer(const WICInitializer&) = delete;
         WICInitializer& operator=(const WICInitializer&) = delete;
     }GWICInitializer;

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <assert.h>
 #include "RenderHelp.h"
+#include "Scene.h"
 
 using namespace learning;
 
@@ -48,13 +49,16 @@ bool MyFirstWndGame::Initialize()
 	std::cout << "Bitmap Load Success!" << std::endl;
 
 #pragma endregion
-    for (int i = 0; i < MAX_GAME_OBJECT_COUNT; ++i)
-    {
-        m_GameObjectPtrTable[i] = nullptr;
-    }
 
-    // [CHECK]. 첫 번째 게임 오브젝트는 플레이어 캐릭터로 고정!
-    CreatePlayer();
+    m_pScenes[SceneType::SCENE_TITLE] = new TitleScene();
+    m_pScenes[SceneType::SCENE_TITLE]->Initialize(this);
+
+
+    m_pScenes[SceneType::SCENE_PLAY] = new PlayScene();
+    m_pScenes[SceneType::SCENE_PLAY]->Initialize(this);
+
+    m_pScenes[SceneType::SCENE_ENDING] = new EndingScene();
+    m_pScenes[SceneType::SCENE_ENDING]->Initialize(this);
 
     return true;
 
@@ -145,8 +149,8 @@ void MyFirstWndGame::CreatePlayer()
     pNewObject->SetName("Player");
     pNewObject->SetPosition(0.0f, 0.0f); // 일단, 임의로 설정 
     pNewObject->SetSpeed(1.0f); // 일단, 임의로 설정   
-    pNewObject->setHeight(100);
-	pNewObject->setWidth(100);
+    pNewObject->SetHeight(100);
+	pNewObject->SetWidth(100);
 
     pNewObject->SetBitmapInfo(m_pPlayerBitmapInfo);
     pNewObject->SetColliderCircle(50.0f); // 일단, 임의로 설정. 오브젝트 설정할 거 다 하고 나서 하자.
@@ -169,8 +173,8 @@ void MyFirstWndGame::CreateEnemy()
 
     pNewObject->SetPosition(x, y);
     pNewObject->SetSpeed(1.0f); // 일단, 임의로 설정 
-    pNewObject->setHeight(100);
-    pNewObject->setWidth(100);
+    pNewObject->SetHeight(100);
+    pNewObject->SetWidth(100);
 
     pNewObject->SetColliderCircle(50.0f); // 일단, 임의로 설정. 오브젝트 설정할 거 다 하고 나서 하자.
     pNewObject->SetBitmapInfo(m_pEnemyBitmapInfo);
@@ -224,6 +228,55 @@ void MyFirstWndGame::UpdatePlayerInfo()
     else
     {
         pPlayer->SetDirection(Vector2f(0, 0)); // 플레이어 정지
+    }
+}
+using BitmapInfo = renderHelp::BitmapInfo;
+
+Vector2f MyFirstWndGame::EnemySpawnPosition()
+{
+    //Vector2f m_EnemySpawnPos = { m_EnemySpawnPos.x, m_EnemySpawnPos.y };
+    //return Vector2f(m_EnemySpawnPos);
+    return Vector2f{ m_EnemySpawnPos.x, m_EnemySpawnPos.y };
+}
+
+Vector2f MyFirstWndGame::PlayerTargetPosition()
+{
+    static GameObject* pPlayer = GetPlayer();
+
+    assert(pPlayer != nullptr);
+
+    Vector2f mousePos(m_PlayerTargetPos.x, m_PlayerTargetPos.y);
+    Vector2f playerPos = pPlayer->GetPosition();
+
+    Vector2f playerDir = mousePos - playerPos;
+    return Vector2f(playerDir);
+}
+
+void MyFirstWndGame::ResetEnemySpawnPosition()
+{
+    m_EnemySpawnPos.x = 0.0f;
+    m_EnemySpawnPos.y = 0.0f;
+}
+
+BitmapInfo* MyFirstWndGame::GetPlayerBitmapInfo()
+{
+    m_pPlayerBitmapInfo = renderHelp::CreateBitmapInfo(L"../Resource/redbird.png");
+    return m_pPlayerBitmapInfo;
+}
+
+BitmapInfo* MyFirstWndGame::GetEnemyBitmapInfo()
+{
+    m_pEnemyBitmapInfo = renderHelp::CreateBitmapInfo(L"../Resource/graybird.png");
+    return m_pEnemyBitmapInfo;
+}
+
+void MyFirstWndGame::ChangeScene(SceneType eSceneType)
+{
+    if (m_eCurrentScene != eSceneType)
+    {
+        m_pScenes[m_eCurrentScene]->Leave();
+        m_eCurrentScene = eSceneType;
+        m_pScenes[m_eCurrentScene]->Enter();
     }
 }
 

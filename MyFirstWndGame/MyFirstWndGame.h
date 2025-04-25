@@ -1,12 +1,14 @@
 #pragma once
 #include "NzWndBase.h"
 #include "Utillity.h"
+#include "Scene.h"
+#include "GameObject.h"
 
+class Scene;
 namespace renderHelp
 {
     class BitmapInfo;
 }
-
 // [CHECK] #7  전방 선언을 사용하여 헤더파일의 의존성을 줄임.
 class GameTimer;
 class GameObjectBase;
@@ -55,6 +57,8 @@ private:
     float m_fDeltaTime = 0.0f;
     float m_fFrameCount = 0.0f;
 
+    int m_eCurrentScene = SCENE_TITLE;
+    Scene* m_pScenes[SceneType::SCENE_MAX] = { nullptr, nullptr, nullptr };
     // [CHECK] #8. 게임 오브젝트를 관리하는 컨테이너.
     GameObjectBase** m_GameObjectPtrTable = nullptr;
 
@@ -82,5 +86,16 @@ private:
 
     BitmapInfo* m_pEnemyBitmapInfo = nullptr;
 
+    BitmapInfo* m_pBackgroundBitmapInfo = nullptr;
+    
+public:
+    using Vector2f = learning::Vector2f;
+    Vector2f EnemySpawnPosition();
+    Vector2f PlayerTargetPosition();
+    void ResetEnemySpawnPosition();
+    BitmapInfo* GetPlayerBitmapInfo();
+    BitmapInfo* GetEnemyBitmapInfo();
+    BitmapInfo* GetBackgroundBitmapInfo() const { return m_pBackgroundBitmapInfo; }
+    void ChangeScene(SceneType eSceneType);
 #pragma endregion
 };

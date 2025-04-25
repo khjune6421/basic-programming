@@ -1,5 +1,6 @@
 #include <cassert>
 #include <math.h>
+#include <vector>
 #include "GameWindow.h"
 #include "Time.h"
 
@@ -32,68 +33,108 @@ void Game::Run()
 		}
 		else
 		{
+			if ((GetAsyncKeyState(VK_UP) & 0x8000 | (GetAsyncKeyState(VK_SPACE) & 0x8000)) == false)
+			{
+				isKeyPressed = false;
+			}
 			if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 			{
-				std::cout << "down";
 				input = 2;
 			}
-			else if (GetAsyncKeyState(VK_UP) & 0x8000)
+			else if (isKeyPressed == false && (GetAsyncKeyState(VK_UP) & 0x8000 || (GetAsyncKeyState(VK_SPACE) & 0x8000)))
 			{
-				std::cout << "up";
 				input = 1;
+				isKeyPressed = true;
+				if (scene == MAIN_SCENE)
+				{
+					gameTime = 0.0;
+					creatEnemyLoop = 1;
+					scene = GAME_SCENE;
+					for (int i = 1; i < MAX_GAME_OBJECT_COUNT; ++i)
+					{
+						if (m_gameObjectPtrTable[i])
+						{
+							delete m_gameObjectPtrTable[i];
+							m_gameObjectPtrTable[i] = nullptr;
+						}
+					}
+				}
+			}
+			else if (GetAsyncKeyState(VK_UP) & 0x8000 || (GetAsyncKeyState(VK_SPACE) & 0x8000))
+			{
+				input = 3;
+				isKeyPressed = true;
 			}
 			else
 			{
 				input = 0;
 			}
-			Update();
-			Render();
+			if (scene == GAME_SCENE)
+			{
+				Update();
+				Render();
+			}
+			else if (scene == MAIN_SCENE)
+			{
+				Timer();
+				MainSceneRender();
+			}
+			else if (scene == END_SCENE)
+			{
+				EndSceneRender();
+				if (isKeyPressed == false && (GetAsyncKeyState(VK_UP) & 0x8000 || (GetAsyncKeyState(VK_SPACE) & 0x8000)))
+				{
+					isKeyPressed = true;
+					scene = MAIN_SCENE;
+				}
+			}
 		}
 	}
 }
 
 bool Game::Initialize()
-{  
-   QueryPerformanceFrequency(&frequency);
-   QueryPerformanceCounter(&previousTime);
+{
+	std::random_device rd;
+	unsigned long long seed = rd();
+	std::mt19937 gen(static_cast<unsigned int>(seed));
+	gameGen = gen;
 
-   const wchar_t* className = L"FlappyDino";
-   const wchar_t* windowName = L"FlappyDino";
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&previousTime);
 
-   if (false == __super::Create(className, windowName, 1920, 1080))
-   {
-       std::cout << "윈도우 생성 실패" << std::endl;
-       return false;
-   }
+	const wchar_t* className = L"FlappyDino";
+	const wchar_t* windowName = L"FlappyDino";
 
-   RECT rcClient = {};
-   GetClientRect(m_hWnd, &rcClient);
-   m_width = rcClient.right - rcClient.left;
-   m_height = rcClient.bottom - rcClient.top;
+	if (false == __super::Create(className, windowName, 1280, 540))
+	{
+		std::cout << "윈도우 생성 실패" << std::endl;
+		return false;
+	}
 
-   m_hFrontDC = GetDC(m_hWnd);
-   m_hBackDC = CreateCompatibleDC(m_hFrontDC);
-   m_hBackBitmap = CreateCompatibleBitmap(m_hFrontDC, m_width, m_height);
-   m_hDefaultBitmap = (HBITMAP)SelectObject(m_hBackDC, m_hBackBitmap);
-   m_gameObjectPtrTable = new GameObject * [MAX_GAME_OBJECT_COUNT];
-   m_pPlayerBitmapInfo = CreateBitmapInfo(L"../Resource/redbird.png");
-   m_pEnemyBitmapInfo = CreateBitmapInfo(L"../Resource/graybird.png");
+	RECT rcClient = {};
+	GetClientRect(m_hWnd, &rcClient);
+	m_width = rcClient.right - rcClient.left;
+	m_height = rcClient.bottom - rcClient.top;
 
-   if (m_pPlayerBitmapInfo == nullptr || m_pEnemyBitmapInfo == nullptr)
-   {
-	   std::cout << "Bitmap Load Failed!" << std::endl;
-	   return false;
-   }
-   std::cout << "Bitmap Load Success!" << std::endl;
+	m_hFrontDC = GetDC(m_hWnd);
+	m_hBackDC = CreateCompatibleDC(m_hFrontDC);
+	m_hBackBitmap = CreateCompatibleBitmap(m_hFrontDC, m_width, m_height);
+	m_hDefaultBitmap = (HBITMAP)SelectObject(m_hBackDC, m_hBackBitmap);
+	m_gameObjectPtrTable = new GameObject * [MAX_GAME_OBJECT_COUNT];
+	m_pPlayerBitmapInfoRun = CreateBitmapInfo(L"../Resource/dino_run.png");
+	m_pPlayerBitmapInfoDuck = CreateBitmapInfo(L"../Resource/dino_lower.png");
+	m_pPlayerBitmapInfoDeath = CreateBitmapInfo(L"../Resource/dino_death.png");
+	m_pEnemyBitmapInfoCactus = CreateBitmapInfo(L"../Resource/small_cactuses.png");
+	m_pEnemyBitmapInfoBird = CreateBitmapInfo(L"../Resource/pterosaur.png");
 
-   for (int i = 0; i < MAX_GAME_OBJECT_COUNT; ++i)
-   {
-	   m_gameObjectPtrTable[i] = nullptr;
-   }
+	for (int i = 0; i < MAX_GAME_OBJECT_COUNT; ++i)
+	{
+		m_gameObjectPtrTable[i] = nullptr;
+	}
 
-   CreatePlayer();
+	CreatePlayer();
 
-   return true;
+	return true;
 }
 
 void Game::Finalize()
@@ -209,30 +250,42 @@ void Game::CreatePlayer()
 	Player* pPlayerObject = new Player(ObjectType::PLAYER);
 
 	pPlayerObject->SetPosition(100.0f, DEFALT_HIGHT);
-	pPlayerObject->SetCollider(100.0f, 100.0f);
+	pPlayerObject->SetCollider(100.0f, DEFALT_PLAYER_COLLIDER_Y);
 	pPlayerObject->SetWidth(100);
 	pPlayerObject->SetHeight(100);
-	pPlayerObject->SetBitmapInfo(m_pPlayerBitmapInfo);
+	pPlayerObject->SetBitmapInfo(m_pPlayerBitmapInfoRun);
 
 	m_gameObjectPtrTable[0] = pPlayerObject;
 }
 
 void Game::CreateEnemy()
 {
+	std::uniform_int_distribution<int> dist1(0, 1);
+	std::uniform_int_distribution<int> dist2(1, 2);
+	int enemySpawnRandom = dist1(gameGen);
+	int enemyBirdSpawnRandom = dist2(gameGen);
+
 	Enemy* pNewEnemy = new Enemy(ObjectType::ENEMY);
 
 	float x = m_EnemySpawnPos.x;
 	float y = m_EnemySpawnPos.y;
 
-	pNewEnemy->SetPosition(x, y);
-	pNewEnemy->SetSpeed(-0.5f);
+	pNewEnemy->SetPosition(x, y - (70 * enemySpawnRandom * enemyBirdSpawnRandom));
+	pNewEnemy->SetSpeed(-0.5f - static_cast <float>(gameTime / 30000.0));
 	pNewEnemy->SetCollider(100.0f, 100.0f);
 	pNewEnemy->SetWidth(100);
 	pNewEnemy->SetHeight(100);
-	pNewEnemy->SetBitmapInfo(m_pEnemyBitmapInfo);
+	if (enemySpawnRandom)
+	{
+		pNewEnemy->SetBitmapInfo(m_pEnemyBitmapInfoBird);
+	}
+	else
+	{
+		pNewEnemy->SetBitmapInfo(m_pEnemyBitmapInfoCactus);
+	}
 
 	int i = 0;
-	while (++i < MAX_GAME_OBJECT_COUNT) //0번째는 언제나 플레이어!
+	while (++i < MAX_GAME_OBJECT_COUNT)
 	{
 		if (m_gameObjectPtrTable[i] == nullptr)
 		{
@@ -252,10 +305,13 @@ void Game::PlayerMovement(short input)
 	Player* pPlayer = (Player*)m_gameObjectPtrTable[0];
 	float pPosition = pPlayer->GetPosition().y;
 
+	isDucking = false;
 	jumpTime += deltaTime;
+	jumpAndGravity = jumpPower - (jumpTime / (GRAVITY / 1.4));
 
 	if (pPosition >= DEFALT_HIGHT - 0.1)
 	{
+		jumpPower = 1.2f;
 		switch (input)
 		{
 		case 0:
@@ -263,30 +319,40 @@ void Game::PlayerMovement(short input)
 			jumpTime = 0.0;
 			break;
 		case 1:
-			pPlayer->SetPositionY(pPosition - (JUMP_POWER * deltaTime));
-			isJumping = true;
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			jumpTime = 0.0;
 			break;
 		case 2:
+			pPlayer->SetPositionY(DEFALT_HIGHT);
+			jumpTime = 0.0;
+			isDucking = true;
+			break;
+		case 3:
 			pPlayer->SetPositionY(DEFALT_HIGHT);
 			jumpTime = 0.0;
 			break;
 		}
 	}
-	else if (isJumping)
+	else if (jumpTime < 200.0)
 	{
 		switch (input)
 		{
 		case 0:
-			pPlayer->SetPositionY(pPosition + (GRAVITY * pow(jumpTime, 2.0)));
-			isJumping = false;
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			break;
 		case 1:
-			pPlayer->SetPositionY(pPosition - (JUMP_POWER * deltaTime) + (GRAVITY * pow(jumpTime, 2.0)));
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			break;
 		case 2:
-			pPlayer->SetPositionY(pPosition + ((JUMP_POWER / 2) * pow(deltaTime, 2.0) + (GRAVITY * pow(jumpTime, 2.0))));
-			isJumping = false;
+			if (jumpAndGravity > 0.0)
+			{
+				jumpTime += GRAVITY;
+			}
+			pPlayer->SetPositionY(pPosition + ((jumpPower / 2) * static_cast <float>(deltaTime)) - static_cast <float>(jumpAndGravity * deltaTime));
+			break;
+		case 3:
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
+			jumpPower += 0.003f * static_cast <float>(deltaTime);
 			break;
 		}
 	}
@@ -295,26 +361,86 @@ void Game::PlayerMovement(short input)
 		switch (input)
 		{
 		case 0:
-			pPlayer->SetPositionY(pPosition + (GRAVITY * pow(jumpTime, 2.0)));
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			break;
 		case 1:
-			pPlayer->SetPositionY(pPosition - (JUMP_POWER * deltaTime) + (GRAVITY * pow(jumpTime, 2.0)));
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			break;
 		case 2:
-			pPlayer->SetPositionY(pPosition + ((JUMP_POWER / 2) * deltaTime) + (GRAVITY * pow(jumpTime, 2.0)));
+			if (jumpAndGravity > 0.0)
+			{
+				jumpTime += GRAVITY;
+			}
+			pPlayer->SetPositionY(pPosition + ((jumpPower / 2) * static_cast <float>(deltaTime)) - static_cast <float>(jumpAndGravity * deltaTime));
+			break;
+		case 3:
+			pPlayer->SetPositionY(pPosition - static_cast <float>(jumpAndGravity * deltaTime));
 			break;
 		}
 	}
+	if (isDucking)
+	{
+		pPlayer->SetColliderH(DEFALT_PLAYER_COLLIDER_Y / 2.0f);
+		pPlayer->SetBitmapInfo(m_pPlayerBitmapInfoDuck);
+	}
+	else
+	{
+		pPlayer->SetColliderH(DEFALT_PLAYER_COLLIDER_Y);
+		pPlayer->SetBitmapInfo(m_pPlayerBitmapInfoRun);
+	}
+}
+
+void Game::MainSceneRender()
+{
+	::PatBlt(m_hBackDC, 0, 0, m_width, m_height, WHITENESS);
+
+	Player* pPlayer = (Player*)m_gameObjectPtrTable[0];
+	pPlayer->SetPosition(100.0f, DEFALT_HIGHT);
+	pPlayer->SetBitmapInfo(m_pPlayerBitmapInfoRun);
+	pPlayer->Update(false);
+	pPlayer->UpdateFrame(deltaTime);
+	pPlayer->Render(m_hBackDC, isColliding);
+
+	TextOutA(m_hBackDC, (m_width / 2) - (MAIN_SCENE_TEXT_SIZE * 4), m_height / 2, mainSceneText, MAIN_SCENE_TEXT_SIZE - 1);
+	TextOutA(m_hBackDC, 1100, 100, hiScoreText, 5);
+	TextOutA(m_hBackDC, 1150, 100, scoreText, 5);
+
+	BitBlt(m_hFrontDC, 0, 0, m_width, m_height, m_hBackDC, 0, 0, SRCCOPY);
+}
+
+void Game::EndSceneRender()
+{
+	::PatBlt(m_hBackDC, 0, 0, m_width, m_height, WHITENESS);
+	Player* pPlayer = (Player*)m_gameObjectPtrTable[0];
+	pPlayer->SetBitmapInfo(m_pPlayerBitmapInfoDeath);
+
+	for (int i = 1; i < MAX_GAME_OBJECT_COUNT; ++i)
+	{
+		Enemy* pEnemy = (Enemy*)m_gameObjectPtrTable[i];
+		if (pEnemy != nullptr)
+		{
+			pEnemy->UpdateFrame(deltaTime);
+			pEnemy->Render(m_hBackDC, isColliding);
+		}
+	}
+	pPlayer->UpdateFrame(deltaTime);
+	pPlayer->Render(m_hBackDC, isColliding);
+	RenderScore();
+
+	TextOutA(m_hBackDC, (m_width / 2) - (END_SCENE_TEXT_SIZE1 * 4), m_height / 2, endSceneText1, END_SCENE_TEXT_SIZE1 - 1);
+	TextOutA(m_hBackDC, (m_width / 2) - (END_SCENE_TEXT_SIZE2 * 4), (m_height / 2) + 20, endSceneText2, END_SCENE_TEXT_SIZE2 - 1);
+	TextOutA(m_hBackDC, 1100, 100, hiScoreText, 5);
+	TextOutA(m_hBackDC, 1150, 100, scoreText, 5);
+
+	BitBlt(m_hFrontDC, 0, 0, m_width, m_height, m_hBackDC, 0, 0, SRCCOPY);
 }
 
 void Game::Update()
-{
-	static int creatEnemyLoop = 1;
-
+{;
 	Timer();
 	LogicUpdate();
 
-	while (gameTime >= (2000 * creatEnemyLoop))
+	while (gameTime >= ((1500 - (creatEnemyLoop * 5)) * creatEnemyLoop))
 	{
 		CreateEnemy();
 		creatEnemyLoop++;
@@ -323,15 +449,31 @@ void Game::Update()
 
 void Game::LogicUpdate()
 {
+	isColliding = false;
 	PlayerMovement(input);
 	Player* pPlayer = (Player*)m_gameObjectPtrTable[0];
-	pPlayer->Update(deltaTime);
+	Collider* pPlayerCollider = pPlayer->GetCollider();
+	pPlayer->Update(isDucking);
 	for (int i = 1; i < MAX_GAME_OBJECT_COUNT; ++i)
 	{
 		if (m_gameObjectPtrTable[i])
 		{
 			Enemy* pEnemy = (Enemy*)m_gameObjectPtrTable[i];
-			pEnemy->Update(deltaTime);
+			if (pEnemy->Update(deltaTime))
+			{
+				delete m_gameObjectPtrTable[i];
+				m_gameObjectPtrTable[i] = nullptr;
+			}
+			else
+			{
+				Collider* pEnemyCollider = pEnemy->GetCollider();
+				if (Intersect(*pPlayerCollider, *pEnemyCollider))
+				{
+					isColliding = true;
+					isKeyPressed = true;
+					scene = END_SCENE;
+				}
+			}
 		}
 	}
 }
@@ -339,33 +481,40 @@ void Game::LogicUpdate()
 void Game::Render()
 {
 	//std::cout << "rendering";
-	bool isColliding = false;
 
 	::PatBlt(m_hBackDC, 0, 0, m_width, m_height, WHITENESS);
 	Player* pPlayer = (Player*)m_gameObjectPtrTable[0];
-	Collider* pPlayerCollision = pPlayer->GetCollider();
 	for (int i = 1; i < MAX_GAME_OBJECT_COUNT; ++i)
 	{
 		Enemy* pEnemy = (Enemy*)m_gameObjectPtrTable[i];
 		if (pEnemy != nullptr)
 		{
 			pEnemy->UpdateFrame(deltaTime);
-		}
-		if (m_gameObjectPtrTable[i])
-		{
-			Collider* pEnemyCollision = pEnemy->GetCollider();
-			if (Intersect(*pPlayerCollision, *pEnemyCollision))
-			{
-				pEnemy->Render(m_hBackDC, true);
-				isColliding = true;
-			}
-			else
-			{
-				pEnemy->Render(m_hBackDC, false);
-			}
+			pEnemy->Render(m_hBackDC, isColliding);
 		}
 	}
 	pPlayer->UpdateFrame(deltaTime);
 	pPlayer->Render(m_hBackDC, isColliding);
+	RenderScore();
 	BitBlt(m_hFrontDC, 0, 0, m_width, m_height, m_hBackDC, 0, 0, SRCCOPY);
+}
+
+void Game::RenderScore()
+{
+	gameScore = static_cast <int>(gameTime / 100.0);
+	if (gameScore >= hiScore)
+	{
+		hiScore = gameScore;
+	}
+	int hiScoreDigit = hiScore;
+	int scoreDigit = gameScore;
+	for (int i = 4; i >= 0; i--)
+	{
+		hiScoreText[4 - i] = (hiScoreDigit / static_cast <int>(pow(10, i))) + 48;
+		hiScoreDigit = (hiScoreDigit % static_cast <int>(pow(10, i)));
+		scoreText[4 - i] = (scoreDigit / static_cast <int>(pow(10, i))) + 48;
+		scoreDigit = (scoreDigit % static_cast <int>(pow(10, i)));
+	}
+	TextOutA(m_hBackDC, 1100, 100, hiScoreText, 5);
+	TextOutA(m_hBackDC, 1150, 100, scoreText, 5);
 }
